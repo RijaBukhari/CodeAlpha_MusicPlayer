@@ -23,7 +23,7 @@ loadSong(songs[songIndex]);
 // Update song details
 function loadSong(song) {
   title.innerText = song;
-  audio.src = `music/${song}.mp3`;
+  audio.src = `assets/music/${song}.mp3`;
   cover.src = `assets/${song}.jpg`;
 }
 
@@ -87,20 +87,20 @@ function setProgress(e) {
   audio.currentTime = (clickX / width) * duration;
 }
 
-//get duration & currentTime for Time of song
+// Get duration & currentTime for Time of song
 function DurTime(e) {
   const { duration, currentTime } = e.srcElement;
-  var sec;
-  var sec_d;
+  let sec;
+  let sec_d;
 
-  // define minutes currentTime
+  // Define minutes currentTime
   let min = currentTime == null ? 0 : Math.floor(currentTime / 60);
   min = min < 10 ? "0" + min : min;
 
-  // define seconds currentTime
+  // Define seconds currentTime
   function get_sec(x) {
     if (Math.floor(x) >= 60) {
-      for (var i = 1; i <= 60; i++) {
+      for (let i = 1; i <= 60; i++) {
         if (Math.floor(x) >= 60 * i && Math.floor(x) < 60 * (i + 1)) {
           sec = Math.floor(x) - 60 * i;
           sec = sec < 10 ? "0" + sec : sec;
@@ -112,35 +112,34 @@ function DurTime(e) {
     }
   }
 
-  get_sec(currentTime, sec);
+  get_sec(currentTime);
 
-  // change currentTime DOM
-  currTime.innerHTML = min + ":" + sec;
+  // Change currentTime DOM
+  currTime.innerHTML = `${min}:${sec}`;
 
-  // define minutes duration
-  let min_d = isNaN(duration) === true ? "0" : Math.floor(duration / 60);
+  // Define minutes duration
+  let min_d = isNaN(duration) ? "0" : Math.floor(duration / 60);
   min_d = min_d < 10 ? "0" + min_d : min_d;
 
+  // Define seconds duration
   function get_sec_d(x) {
     if (Math.floor(x) >= 60) {
-      for (var i = 1; i <= 60; i++) {
+      for (let i = 1; i <= 60; i++) {
         if (Math.floor(x) >= 60 * i && Math.floor(x) < 60 * (i + 1)) {
           sec_d = Math.floor(x) - 60 * i;
           sec_d = sec_d < 10 ? "0" + sec_d : sec_d;
         }
       }
     } else {
-      sec_d = isNaN(duration) === true ? "0" : Math.floor(x);
+      sec_d = isNaN(duration) ? "0" : Math.floor(x);
       sec_d = sec_d < 10 ? "0" + sec_d : sec_d;
     }
   }
 
-  // define seconds duration
-
   get_sec_d(duration);
 
-  // change duration DOM
-  durTime.innerHTML = min_d + ":" + sec_d;
+  // Change duration DOM
+  durTime.innerHTML = `${min_d}:${sec_d}`;
 }
 
 // Event listeners
