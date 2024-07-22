@@ -6,6 +6,7 @@ const nextBtn = document.getElementById("next");
 const audio = document.getElementById("audio");
 const progress = document.getElementById("progress");
 const progressContainer = document.getElementById("progress-container");
+const progressHandle = document.getElementById("progress-handle");
 const title = document.getElementById("title");
 const cover = document.getElementById("cover");
 const currTime = document.querySelector("#currTime");
@@ -23,8 +24,8 @@ loadSong(songs[songIndex]);
 // Update song details
 function loadSong(song) {
   title.innerText = song;
-  audio.src = `assets/music/${song}.mp3`;
-  cover.src = `assets/${song}.jpg`;
+  audio.src = `/assets/music/${song}.mp3`;
+  cover.src = `/assets/${song}.jpg`;
 }
 
 // Play song
@@ -54,7 +55,6 @@ function prevSong() {
   }
 
   loadSong(songs[songIndex]);
-
   playSong();
 }
 
@@ -67,7 +67,6 @@ function nextSong() {
   }
 
   loadSong(songs[songIndex]);
-
   playSong();
 }
 
@@ -76,28 +75,29 @@ function updateProgress(e) {
   const { duration, currentTime } = e.srcElement;
   const progressPercent = (currentTime / duration) * 100;
   progress.style.width = `${progressPercent}%`;
+  progressHandle.style.left = `${progressPercent}%`;
 }
 
 // Set progress bar
 function setProgress(e) {
-  const width = this.clientWidth;
+  const width = progressContainer.clientWidth;
   const clickX = e.offsetX;
   const duration = audio.duration;
 
   audio.currentTime = (clickX / width) * duration;
 }
 
-//get duration & currentTime for Time of song
+// Get duration & currentTime for Time of song
 function DurTime(e) {
   const { duration, currentTime } = e.srcElement;
-  var sec;
-  var sec_d;
+  let sec;
+  let sec_d;
 
-  // define minutes currentTime
+  // Define minutes currentTime
   let min = currentTime == null ? 0 : Math.floor(currentTime / 60);
   min = min < 10 ? "0" + min : min;
 
-  // define seconds currentTime
+  // Define seconds currentTime
   function get_sec(x) {
     if (Math.floor(x) >= 60) {
       for (var i = 1; i <= 60; i++) {
@@ -114,10 +114,10 @@ function DurTime(e) {
 
   get_sec(currentTime, sec);
 
-  // change currentTime DOM
+  // Change currentTime DOM
   currTime.innerHTML = min + ":" + sec;
 
-  // define minutes duration
+  // Define minutes duration
   let min_d = isNaN(duration) === true ? "0" : Math.floor(duration / 60);
   min_d = min_d < 10 ? "0" + min_d : min_d;
 
@@ -135,11 +135,10 @@ function DurTime(e) {
     }
   }
 
-  // define seconds duration
-
+  // Define seconds duration
   get_sec_d(duration);
 
-  // change duration DOM
+  // Change duration DOM
   durTime.innerHTML = min_d + ":" + sec_d;
 }
 
