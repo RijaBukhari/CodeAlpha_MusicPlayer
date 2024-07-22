@@ -206,7 +206,7 @@ footer {
 
 .social-links {
   display: flex;
-  justify-content: center; /* Center align the icons */
+  justify-content: center;
   margin-top: 10px;
 }
 
